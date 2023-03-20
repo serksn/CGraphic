@@ -44,7 +44,11 @@ void MouseDown()
     char *name = Menu_GetButtonName(buttonId);
     if (strcmp(name,"quit")==0) PostQuitMessage(0);
     if (strcmp(name,"test")==0) InitTest();
-    if (strcmp(name,"back")==0) InitMain();
+    if (strcmp(name,"back")==0) 
+    {
+        printf("got it");
+        InitMain();
+    }
     if (strcmp(name,"anim1")==0)
     {
         TypeOfAnim=0;
@@ -74,12 +78,12 @@ void ShowTexture(float NumberOfSprite, float TypeOfAnim)
     glPushMatrix();
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        static float spriteXsize=320; //переменные с размерами текстуры и отдельного кадра
+        static float spriteXsize=320; //ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ Г± Г°Г Г§Г¬ГҐГ°Г Г¬ГЁ ГІГҐГЄГ±ГІГіГ°Г» ГЁ Г®ГІГ¤ГҐГ«ГјГ­Г®ГЈГ® ГЄГ Г¤Г°Г 
         static float spriteYsize=180;
         static float charsizey=60;
         static float charsizex=40;
-        float left=(charsizex*NumberOfSprite)/spriteXsize; //вычисление координат кадра на изображении от
-        float right=left+(charsizex/spriteXsize); //номера кадра
+        float left=(charsizex*NumberOfSprite)/spriteXsize; //ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІ ГЄГ Г¤Г°Г  Г­Г  ГЁГ§Г®ГЎГ°Г Г¦ГҐГ­ГЁГЁ Г®ГІ
+        float right=left+(charsizex/spriteXsize); //Г­Г®Г¬ГҐГ°Г  ГЄГ Г¤Г°Г 
         float top=(charsizey*TypeOfAnim)/spriteYsize;
         float bottom=top+(charsizey/spriteYsize);
 
