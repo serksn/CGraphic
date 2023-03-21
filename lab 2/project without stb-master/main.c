@@ -15,26 +15,32 @@ char anim=0;
 float TypeOfAnim=0;
 float tick=0;
 
-void InitMain()
+void InitButton()
 {
-    anim=0;
-    Menu_Clear();
+    ChooseBTN(0,3);
     Menu_AddButton("start",10,10,100,30,2);
     Menu_AddButton("test",10,50,100,30,2);
     Menu_AddButton("quit",10,90,100,30,2);
-}
-
-void InitTest()
-{
-    tick=0;
-    TypeOfAnim=0;
-    anim =1;
-    Menu_Clear();
     Menu_AddButton("anim1",10,10,100,30,2);
     Menu_AddButton("anim2",10,50,100,30,2);
     Menu_AddButton("anim3",10,90,100,30,2);
     Menu_AddButton("back",10,130,100,30,2);
-    //Texture_LoadTexture("spriteList.png",&textureId,GL_REPEAT,GL_NEAREST, NULL);
+}
+
+void InitMain()
+{
+    ChooseBTN(0,3);
+    anim=0;
+    TypeOfAnim=0;
+    tick=0;
+}
+
+void InitTest()
+{
+    ChooseBTN(3,7);
+    tick=0;
+    TypeOfAnim=0;
+    anim=1;
 }
 
 void MouseDown()
@@ -44,9 +50,9 @@ void MouseDown()
     char *name = Menu_GetButtonName(buttonId);
     if (strcmp(name,"quit")==0) PostQuitMessage(0);
     if (strcmp(name,"test")==0) InitTest();
-    if (strcmp(name,"back")==0) 
+    if (strcmp(name,"back")==0)
     {
-        printf("got it");
+        //printf("got it");
         InitMain();
     }
     if (strcmp(name,"anim1")==0)
@@ -78,12 +84,12 @@ void ShowTexture(float NumberOfSprite, float TypeOfAnim)
     glPushMatrix();
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        static float spriteXsize=320; //ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»ГҐ Г± Г°Г Г§Г¬ГҐГ°Г Г¬ГЁ ГІГҐГЄГ±ГІГіГ°Г» ГЁ Г®ГІГ¤ГҐГ«ГјГ­Г®ГЈГ® ГЄГ Г¤Г°Г 
+        static float spriteXsize=320; //переменные с размерами текстуры и отдельного кадра
         static float spriteYsize=180;
         static float charsizey=60;
         static float charsizex=40;
-        float left=(charsizex*NumberOfSprite)/spriteXsize; //ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІ ГЄГ Г¤Г°Г  Г­Г  ГЁГ§Г®ГЎГ°Г Г¦ГҐГ­ГЁГЁ Г®ГІ
-        float right=left+(charsizex/spriteXsize); //Г­Г®Г¬ГҐГ°Г  ГЄГ Г¤Г°Г 
+        float left=(charsizex*NumberOfSprite)/spriteXsize; //вычисление координат кадра на изображении от
+        float right=left+(charsizex/spriteXsize); //номера кадра
         float top=(charsizey*TypeOfAnim)/spriteYsize;
         float bottom=top+(charsizey/spriteYsize);
 
@@ -156,7 +162,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     GetClientRect(hwnd, &rct);
     glOrtho(0, rct.right, rct.bottom, 0, 1,-1);
 
-    InitMain();
+    InitButton();
 
     /* program main loop */
     while (!bQuit)
@@ -182,10 +188,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
             glClearColor(0.4f, 0.4f, 0.4f, 0.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
+            Menu_ShowMenu();
             if (anim)
                 ShowTexture(tick,TypeOfAnim);
 
-            Menu_ShowMenu();
 
             SwapBuffers(hDC);
             tick++;

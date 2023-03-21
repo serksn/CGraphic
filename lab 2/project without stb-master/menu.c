@@ -17,8 +17,12 @@ typedef struct
     int num_quads;
     float textPosX,textPosY,textScale;
 } TBtn;
+
 TBtn *btn = 0;
 int btnCnt = 0;
+
+int FirstBtn=0;
+int LastBtn=3;
 
 float mouseX,mouseY;
 
@@ -73,7 +77,7 @@ void ShowButton(int buttonId)
 
 void Menu_ShowMenu()
 {
-    for (int i=0;i<btnCnt;i++)
+    for (int i=FirstBtn;i<LastBtn;i++)
         ShowButton(i);
 }
 
@@ -88,7 +92,7 @@ int Menu_MouseMove(float x, float y)
     mouseX = x;
     mouseY = y;
     int moveBtn = -1;
-    for (int i=0;i<btnCnt;i++)
+    for (int i=FirstBtn;i<LastBtn;i++)
         if (isCoordInButton(i, mouseX, mouseY))
         {
             btn[i].isHover = 1;
@@ -105,7 +109,7 @@ int Menu_MouseMove(float x, float y)
 int Menu_MouseDown()
 {
     int downBtn = -1;
-    for (int i=0;i<btnCnt;i++)
+    for (int i=FirstBtn;i<LastBtn;i++)
         if (isCoordInButton(i, mouseX, mouseY))
         {
             btn[i].isDown = 1;
@@ -116,13 +120,19 @@ int Menu_MouseDown()
 
 void Menu_MouseUp()
 {
-    for (int i=0; i<btnCnt;i++)
+    for (int i=FirstBtn;i<LastBtn;i++)
         btn[i].isDown=0;
 }
 
 char *Menu_GetButtonName(int buttonId)
 {
     return btn[buttonId].name;
+}
+
+void ChooseBTN(int First, int Last)
+{
+    FirstBtn=First;
+    LastBtn=Last;
 }
 
 void Menu_Clear()
